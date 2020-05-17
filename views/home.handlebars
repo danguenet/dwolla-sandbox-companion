@@ -63,6 +63,7 @@
 		var secret = document.querySelector('#secret');
 		localStorage.setItem("key", key.value);
 		localStorage.setItem("secret", secret.value);
+		location.reload();
 	}
 	function remove() {
 		localStorage.removeItem("key");
