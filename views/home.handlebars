@@ -1,0 +1,80 @@
+<div class="jumbotron">
+	<h1 class="display-3">Welcome Dwolla Sandbox Users!</h1>
+	<p class="lead">Explore the different payment flows you can accomplish with Dwolla using only 3 endpoints.</p>
+	<hr class="my-4">
+	<p>If you haven't created a <a href="https://accounts-sandbox.dwolla.com/sign-up" target="_blank">Dwolla sandbox
+			account</a> yet, then you should do so. If you already have an account, make sure to input your key and secret
+		below before jumping to a payment flow.</p>
+</div>
+<form id="sandbox-credentials" data-bitwarden-watching="1" class="mx-5 mt-4">
+	<div class="form-group">
+		<label for="key">Key</label>
+		<input type="text" class="form-control" id="key" aria-describedby="key" placeholder="Enter key">
+	</div>
+	<div class="form-group">
+		<label for="secret">Secret</label>
+		<input type="text" class="form-control" id="secret" aria-describedby="secret" placeholder="Enter secret">
+		<small id="helperText" class="form-text">This is saved in your <a target="_blank"
+				href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>. Please only use
+			your Sandbox information.</small>
+	</div>
+</form>
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-md-6">
+			<button type="button" onclick="submit()" class="btn btn-primary btn-lg btn-block">Submit</button>
+		</div>
+		<div class="col-md-6">
+			<button type="button" onclick="remove()" class="btn btn-secondary btn-lg btn-block">Clear
+				localStorage</button>
+		</div>
+	</div>
+</div>
+<h2 class="mt-5">Information</h2>
+<p>
+	This application is meant to help you figure out how to use the Dwolla endpoints in the sandbox.
+	It is organized by payment flow and only uses the main 3 endpoints that you need to move money.
+	For the purpose of keeping it simple we will only use the required fields for these endpoints.
+</p>
+<p>
+	One important security note to add. For the sake of keeping this project simple and not keeping
+	all this behind a login, I've decided to leverage <a target="_blank"
+		href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">localStorage</a>.
+	localStorage will be used to store the key, secret, and any other data that is required to make the
+	flow of the app seamless (think customer location etc.). I have given you an easy way to clear your localStorage
+	of all data you input their from this website.
+</p>
+<p>
+	The reason this is important to note is that anyone can access localStorage if you visit their website
+	or have their extension downloaded. The reason this was acceptable to me is that you should only be putting
+	your sandbox key/secret and you should only be using fake data. If you do not agree with this decision
+	then please do not use this application.
+</p>
+<h2 class="mt-5">Payment Flows</h2>
+<ul>
+	<li><a href="/send/create-user">Send</a> - Send funds from your master account to your users.</li>
+	<li>Receive - Receive funds from your users to your master account.</li>
+	<li>Facilitate - Facilitate the transfer of funds between two users.</li>
+	<li>Me to Me - Allow users to send funds from one of their funding sources to another.</li>
+</ul>
+<script>
+	function submit() {
+		var key = document.querySelector('#key');
+		var secret = document.querySelector('#secret');
+		localStorage.setItem("key", key.value);
+		localStorage.setItem("secret", secret.value);
+	}
+	function remove() {
+		localStorage.removeItem("key");
+		localStorage.removeItem("secret");
+		localStorage.removeItem("sendUser");
+		localStorage.removeItem("masterFundingSource");
+		localStorage.removeItem("masterAccount");
+		localStorage.removeItem("sendBank");
+	}
+	function setValues() {
+		document.querySelector('#key').value = localStorage.getItem('key');
+		document.querySelector('#secret').value = localStorage.getItem('secret');
+	}
+	window.onload = setValues;
+</script>

@@ -1,0 +1,19 @@
+{
+  "name": "dwolla-sandbox-companion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app"
+  },
+  "author": "Dan Guenet",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "dwolla-v2": "^3.1.2",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4"
+  }
+}

@@ -1,0 +1,17 @@
+status:
+<code id="status">
+	{{{ status }}}
+</code><br>
+<code id="location">
+	{{{ location }}}
+</code><br>
+<a href="{{{buttonLink}}}" class="btn btn-primary mt-4" role="button">{{{buttonText}}}</a>
+<script>
+	function getLocation() {
+		if (document.querySelector('#status').innerHTML.trim().startsWith("2")) {
+			console.log("update!")
+			localStorage.setItem("{{{ localStorage }}}", document.querySelector('#location').innerHTML.trim());
+		}
+	}
+	window.onload = getLocation;
+</script>

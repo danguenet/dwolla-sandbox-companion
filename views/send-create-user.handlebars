@@ -1,0 +1,90 @@
+<h1 class="text-center">Send</h1>
+<p class="text-center">
+	Use ACH transfers to send funds to your users.
+</p>
+<h2 class="mt-3">Receive-only User</h2>
+<table class="table table-hover mt-3">
+	<thead>
+		<tr>
+			<th scope="col">Parameter</th>
+			<th scope="col">Type</th>
+			<th scope="col">Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="table-active">
+			<th scope="row">firstName</th>
+			<td>string</td>
+			<td>Customer’s first name.</td>
+		</tr>
+		<tr>
+			<th scope="row">lastName</th>
+			<td>string</td>
+			<td>Customer’s last name.</td>
+		</tr>
+		<tr class="table-active">
+			<th scope="row">email</th>
+			<td>string</td>
+			<td>Customer’s email address.</td>
+		</tr>
+		<tr>
+			<th scope="row">type</th>
+			<td>string</td>
+			<td>Value of receive-only.</td>
+		</tr>
+	</tbody>
+</table>
+<hr />
+<h2 class="mt-3">Create Users</h2>
+<p>We first need to create the user that we will be sending money to.</p>
+<form action="/customers/send/create-user" method="POST" class="mt-3">
+	<div class="form-group" onload="setValues()">
+		<div class="form-row">
+			<div class="col">
+				<input type="hidden" class="form-control" id="key" name="key">
+				<input type="hidden" class="form-control" id="secret" name="secret">
+				<div class="form-group">
+					<label for="firstName">firstName</label>
+					<input type="text" class="form-control" id="firstName" name="firstName" required>
+				</div>
+				<div class="form-group">
+					<label for="lastName">lastName</label>
+					<input type="text" class="form-control" id="lastName" name="lastName" required>
+				</div>
+				<div class="form-group">
+					<label for="email">email</label>
+					<input type="text" class="form-control" id="email" name="email" required>
+				</div>
+				<div class="form-group">
+					<label for="type">type</label>
+					<input type="text" class="form-control" id="type" name="type" value="receive-only" readonly>
+				</div>
+				<small id="helperText" class="form-text">Please only use fake data.<br>Email has to be unique from
+					other users in your sandbox.</small>
+			</div>
+			<div class="col mx-4">
+				<p class="font-weight-bold text-center">HTTP request</p>
+				<code>POST https://api.dwolla.com/customers</code>
+				<p class="font-weight-bold text-center mt-3">Example Body Request</p>
+				<code>
+					<pre>
+{
+	"firstName": "Todd",
+	"lastName": "Winston",
+	"email": "twinston@example.com",
+	"type": "receive-only"
+}
+					</pre>
+				</code>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block mt-3">Create RO User</button>
+	</div>
+</form>
+<script>
+	function setValues() {
+		document.querySelector('#key').value = localStorage.getItem('key');
+		document.querySelector('#secret').value = localStorage.getItem('secret');
+	}
+	window.onload = setValues;
+</script>

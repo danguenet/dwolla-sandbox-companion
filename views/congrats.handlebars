@@ -1,0 +1,37 @@
+<h1>You did it!</h1>
+<p>
+	Congrats on finishing! Don't forget to log into your <a href="https://accounts-sandbox.dwolla.com/login"
+		target="target=" _blank"">Dwolla sandbox account</a> to see the transfer.
+</p>
+<p>
+	If you are done with this platform you can clear the localStorage we used. You can either clear all the localStorage
+	except your key and secret or you can clear it all including the key and secret. If you plan on trying another payment
+	flow, I'd recommend keeping the key and secret in localStorage.
+</p>
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-md-6">
+			<button type="button" onclick="removeAll()" class="btn btn-primary btn-lg btn-block">Clear all</button>
+		</div>
+		<div class="col-md-6">
+			<button type="button" onclick="remove()" class="btn btn-secondary btn-lg btn-block">Clear
+				all except key and secret</button>
+		</div>
+	</div>
+</div>
+<script>
+	function removeAll() {
+		localStorage.removeItem("key");
+		localStorage.removeItem("secret");
+		localStorage.removeItem("sendUser");
+		localStorage.removeItem("masterFundingSource");
+		localStorage.removeItem("masterAccount");
+		localStorage.removeItem("sendBank");
+	}
+	function remove() {
+		localStorage.removeItem("sendUser");
+		localStorage.removeItem("masterFundingSource");
+		localStorage.removeItem("masterAccount");
+		localStorage.removeItem("sendBank");
+	}
+</script>

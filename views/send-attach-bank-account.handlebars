@@ -1,0 +1,95 @@
+<h2 class="mt-3">Funding Source</h2>
+<table class="table table-hover mt-3">
+	<thead>
+		<tr>
+			<th scope="col">Parameter</th>
+			<th scope="col">Type</th>
+			<th scope="col">Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="table-active">
+			<th scope="row">routingNumber</th>
+			<td>string</td>
+			<td>A bank routing number that identifies a bank or credit union in the U.S. Note: Validation of the routing
+				number includes: a checksum, the first two digits of the routing number must fall within the range “01” through
+				“12”, or “21” through “32”, and the string value must consist of nine digits.
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">accountNumber</th>
+			<td>string</td>
+			<td>The bank account number. Note: The account number is validated to check if it is a numeric string of 4-17
+				digits.
+			</td>
+		</tr>
+		<tr class="table-active">
+			<th scope="row">bankAccountType</th>
+			<td>string</td>
+			<td>Type of bank account: checking, savings, general-ledger or loan.
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">name</th>
+			<td>string</td>
+			<td>Arbitrary nickname for the funding source. Must be 50 characters or less.
+			</td>
+		</tr>
+	</tbody>
+</table>
+<hr />
+<h2 class="mt-3">Attach Bank Account</h2>
+<p>Now that we have the user, we now need to add a funding source to the user. This funding source will be used as the
+	destination in the transfer.</p>
+<form action="/funding-sources/send/attach-bank-account" method="POST" class="mt-3">
+	<div class="form-group" onload="setValues()">
+		<div class="form-row">
+			<div class="col">
+				<input type="hidden" class="form-control" id="key" name="key">
+				<input type="hidden" class="form-control" id="secret" name="secret">
+				<input type="hidden" class="form-control" id="sendUser" name="sendUser">
+				<div class="form-group">
+					<label for="routingNumber">routingNumber</label>
+					<input type="text" class="form-control" id="routingNumber" name="routingNumber" required>
+				</div>
+				<div class="form-group">
+					<label for="accountNumber">accountNumber</label>
+					<input type="text" class="form-control" id="accountNumber" name="accountNumber" required>
+				</div>
+				<div class="form-group">
+					<label for="bankAccountType">bankAccountType</label>
+					<input type="text" class="form-control" id="bankAccountType" name="bankAccountType" value="checking" readonly>
+				</div>
+				<div class="form-group">
+					<label for="name">name</label>
+					<input type="text" class="form-control" id="name" name="name" required>
+				</div>
+				<small id="helperText" class="form-text">Please only use fake data.</small>
+			</div>
+			<div class="col mx-4">
+				<p class="font-weight-bold text-center">HTTP request</p>
+				<code>POST https://api.dwolla.com/customers/{id}/funding-sources</code>
+				<p class="font-weight-bold text-center mt-3">Example Body Request</p>
+				<code>
+					<pre>
+{
+	"routingNumber": "222222226",
+	"accountNumber": "123456789",
+	"bankAccountType": "checking",
+	"name": "Todd Winston’s Checking"
+}
+					</pre>
+				</code>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block mt-3">Create RO User</button>
+	</div>
+</form>
+<script>
+	function setValues() {
+		document.querySelector('#key').value = localStorage.getItem('key');
+		document.querySelector('#secret').value = localStorage.getItem('secret');
+		document.querySelector('#sendUser').value = localStorage.getItem('sendUser');
+	}
+	window.onload = setValues;
+</script>

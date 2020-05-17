@@ -1,0 +1,115 @@
+<h2 class="mt-3">Transfers</h2>
+<table class="table table-hover mt-3">
+	<thead>
+		<tr>
+			<th scope="col">Parameter</th>
+			<th scope="col">Type</th>
+			<th scope="col">Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="table-active">
+			<th scope="row">_links</th>
+			<td>object</td>
+			<td>A _links JSON object describing the desired source and destination of a transfer. Reference the Source and
+				Destination object to learn more about possible values for source and destination.</td>
+		</tr>
+		<tr>
+			<th scope="row">source.href</th>
+			<td>string</td>
+			<td>The user that is the source of the transfer. In a send payment flow this is left blank and is the master
+				account.</td>
+		</tr>
+		<tr class="table-active">
+			<th scope="row">destination.href</th>
+			<td>string</td>
+			<td>The user that is the destination of the transfer. We will use the user that you just created.</td>
+		</tr>
+		<tr>
+			<th scope="row">amount</th>
+			<td>object</td>
+			<td>An amount JSON object. Reference the amount JSON object to learn more.
+			</td>
+		</tr>
+		<tr class="table-active">
+			<th scope="row">amount.currency</th>
+			<td>string</td>
+			<td>Possible values: USD
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">amount.value</th>
+			<td>string</td>
+			<td>Amount of money. If the entered amount has more than two decimal places, Dwolla will automatically round it to
+				the nearest even integer using Banker’s Rounding.
+				Maximum limit: Default transaction limits based on Customer type or custom transaction limits as defined in the
+				services agreement with Dwolla.
+				Minimum limit: $0.01.
+			</td>
+		</tr>
+	</tbody>
+</table>
+<hr />
+<h2 class="mt-3">Move Money</h2>
+<p>Now we have all the information we need to initiate a transfer. Just choose the amount you want to transfer.</p>
+<form action="/transfers/send/move-money" method="POST" class="mt-3">
+	<div class="form-group" onload="setValues()">
+		<div class="form-row">
+			<div class="col">
+				<input type="hidden" class="form-control" id="key" name="key">
+				<input type="hidden" class="form-control" id="secret" name="secret">
+				<div class="form-group">
+					<label for="source">source.href</label>
+					<input type="text" class="form-control" id="source" name="source" readonly>
+				</div>
+				<div class="form-group">
+					<label for="destination">destination.href</label>
+					<input type="text" class="form-control" id="destination" name="destination" readonly>
+				</div>
+				<div class="form-group">
+					<label for="currency">amount.currency</label>
+					<input type="text" class="form-control" id="currency" name="currency" value="USD" readonly>
+				</div>
+				<div class="form-group">
+					<label for="value">amount.value</label>
+					<input type="text" class="form-control" id="value" name="value" required>
+				</div>
+				<small id="helperText" class="form-text">Please only use fake data.</small>
+			</div>
+			<div class="col mx-4">
+				<p class="font-weight-bold text-center">HTTP request</p>
+				<code>POST https://api.dwolla.com/transfers</code>
+				<p class="font-weight-bold text-center mt-3">Example Body Request</p>
+				<code>
+					<pre>
+{
+	"_links": {
+		"source": {
+			"href": ""
+		},
+		"destination": {
+			"href": "https://api-sandbox.dwolla.com/funding-sources/6778f87f-36a4-4863-9f76-c238c22bf7b9"
+		}
+	},
+	"amount": {
+		"currency": "USD",
+		"value": "20.00"
+	}
+}
+					</pre>
+				</code>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block mt-3">Create RO User</button>
+	</div>
+</form>
+<script>
+	function setValues() {
+		document.querySelector('#key').value = localStorage.getItem('key');
+		document.querySelector('#secret').value = localStorage.getItem('secret');
+		document.querySelector('#source').value = localStorage.getItem('masterFundingSource');
+		document.querySelector('#destination').value = localStorage.getItem('sendBank');
+
+	}
+	window.onload = setValues;
+</script>

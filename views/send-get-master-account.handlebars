@@ -1,0 +1,22 @@
+<h2 class="mt-3">Get Master Account</h2>
+<p>Next we need to get the location of our master account. In a real application we would figure out this information
+	once and have it hard coded.</p>
+<form action="/root/send/get-master-account" method="POST" class="mt-3">
+	<div class="form-group" onload="setValues()">
+
+		<input type="hidden" class="form-control" id="key" name="key">
+		<input type="hidden" class="form-control" id="secret" name="secret">
+		<div class="col mx-4">
+			<p class="font-weight-bold text-center">HTTP request</p>
+			<code>GET https://api-sandbox.dwolla.com/</code>
+		</div>
+		<button type="submit" class="btn btn-primary btn-block mt-3">Create RO User</button>
+	</div>
+</form>
+<script>
+	function setValues() {
+		document.querySelector('#key').value = localStorage.getItem('key');
+		document.querySelector('#secret').value = localStorage.getItem('secret');
+	}
+	window.onload = setValues;
+</script>
