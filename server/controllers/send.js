@@ -17,6 +17,8 @@ const createUser = (req, res) => {
   client.auth.client().then(async (appToken) => {
     let buttonText = "Next";
     let buttonLink = "/send/attach-bank-account";
+    let textClass = "text-success";
+    let buttonClass = "btn-primary";
 
     const response = await appToken
       .post("customers", requestBody)
@@ -26,6 +28,8 @@ const createUser = (req, res) => {
       .catch((err) => {
         buttonText = "Back";
         buttonLink = "/send/create-user";
+        textClass = "text-danger";
+        buttonClass = "btn-outline-danger";
         return [err.status, JSON.stringify(err.body._embedded.errors)];
       });
     res.render("code", {
@@ -34,6 +38,8 @@ const createUser = (req, res) => {
       buttonText: buttonText,
       buttonLink: buttonLink,
       localStorage: "sendUser",
+      textClass: textClass,
+      buttonClass: buttonClass,
     });
   });
 };
@@ -55,6 +61,8 @@ const attachBankAccount = (req, res) => {
   client.auth.client().then(async (appToken) => {
     let buttonText = "Next";
     let buttonLink = "/send/get-master-account";
+    let textClass = "text-success";
+    let buttonClass = "btn-success";
 
     const response = await appToken
       .post(`${req.body.sendUser}/funding-sources`, requestBody)
@@ -64,6 +72,8 @@ const attachBankAccount = (req, res) => {
       .catch((err) => {
         buttonText = "Back";
         buttonLink = "/send/attach-bank-account";
+        textClass = "text-danger";
+        buttonClass = "btn-outline-danger";
         return [err.status, JSON.stringify(err.body)];
       });
     res.render("code", {
@@ -72,6 +82,8 @@ const attachBankAccount = (req, res) => {
       buttonText: buttonText,
       buttonLink: buttonLink,
       localStorage: "sendBank",
+      textClass: textClass,
+      buttonClass: buttonClass,
     });
   });
 };
@@ -86,6 +98,8 @@ const getMasterAccount = (req, res) => {
   client.auth.client().then(async (appToken) => {
     let buttonText = "Next";
     let buttonLink = "/send/get-master-funding-source";
+    let textClass = "text-success";
+    let buttonClass = "btn-success";
 
     const response = await appToken
       .get("/")
@@ -95,6 +109,8 @@ const getMasterAccount = (req, res) => {
       .catch((err) => {
         buttonText = "Back";
         buttonLink = "/send/get-master-account";
+        textClass = "text-danger";
+        buttonClass = "btn-outline-danger";
         return [err.status, JSON.stringify(err.body)];
       });
     res.render("code", {
@@ -103,6 +119,8 @@ const getMasterAccount = (req, res) => {
       buttonText: buttonText,
       buttonLink: buttonLink,
       localStorage: "masterAccount",
+      textClass: textClass,
+      buttonClass: buttonClass,
     });
   });
 };
@@ -117,6 +135,9 @@ const getMasterFundingSource = (req, res) => {
   client.auth.client().then(async (appToken) => {
     let buttonText = "Next";
     let buttonLink = "/send/move-money";
+    let textClass = "text-success";
+    let buttonClass = "btn-success";
+
     const response = await appToken
       .get(`${req.body.masterAccount}/funding-sources?removed=false`)
       .then((res) => {
@@ -128,6 +149,8 @@ const getMasterFundingSource = (req, res) => {
       .catch((err) => {
         buttonText = "Back";
         buttonLink = "/send/get-master-funding-source";
+        textClass = "text-danger";
+        buttonClass = "btn-outline-danger";
         return [err.status, JSON.stringify(err.body)];
       });
     res.render("code", {
@@ -136,6 +159,8 @@ const getMasterFundingSource = (req, res) => {
       buttonText: buttonText,
       buttonLink: buttonLink,
       localStorage: "masterFundingSource",
+      textClass: textClass,
+      buttonClass: buttonClass,
     });
   });
 };
@@ -165,6 +190,9 @@ const moveMoney = (req, res) => {
   client.auth.client().then(async (appToken) => {
     let buttonText = "Next";
     let buttonLink = "/congrats";
+    let textClass = "text-success";
+    let buttonClass = "btn-success";
+
     const response = await appToken
       .post("transfers", requestBody)
       .then((res) => {
@@ -173,6 +201,8 @@ const moveMoney = (req, res) => {
       .catch((err) => {
         buttonText = "Back";
         buttonLink = "/send/move-money";
+        textClass = "text-danger";
+        buttonClass = "btn-outline-danger";
         return [err.status, JSON.stringify(err.body)];
       });
     res.render("code", {
@@ -181,6 +211,8 @@ const moveMoney = (req, res) => {
       buttonText: buttonText,
       buttonLink: buttonLink,
       localStorage: "sendBank",
+      textClass: textClass,
+      buttonClass: buttonClass,
     });
   });
 };

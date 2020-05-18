@@ -1,11 +1,11 @@
 status:
-<code id="status">
+<code id="status" class="{{{ textClass }}}">
 	{{{ status }}}
 </code><br>
-<code id="location">
+<code id="location" class="{{{ textClass }}}">
 	{{{ location }}}
 </code><br>
-<a href="{{{buttonLink}}}" class="btn btn-primary mt-4" role="button">{{{buttonText}}}</a>
+<a href="{{{buttonLink}}}" class="btn {{{ buttonClass }}} mt-4" role="button">{{{buttonText}}}</a>
 <script>
 	function getLocation() {
 		if (document.querySelector('#status').innerHTML.trim().startsWith("2")) {
